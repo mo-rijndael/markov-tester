@@ -1,10 +1,17 @@
 import argparse
 import sys
 
+def windows(width, line):
+    iters = []
+    for i in range(width):
+        iters.append(line[i:])
+    return zip(*iters)
+
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--width', type=int, default=2)
     parser.add_argument('files', type=str, nargs='+')
-    pairs = set()
+    slises = set()
     connects = int()
     args = parser.parse_args()
     for file in args.files:
@@ -12,10 +19,10 @@ def main():
         print(f"{file} has {len(lines)} lines")
         for i in lines:
             line = i.strip().split()
-            for t in zip(line, line[1:]):
-                if t in pairs:
+            for t in windows(args.width, line):
+                if t in slises:
                     connects += 1
-                pairs.add(t)
+                slises.add(t)
     print(f"Files have {connects} connections")
 
 try:
