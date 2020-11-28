@@ -3,8 +3,11 @@ import sys
 def main():
     if len(sys.argv) != 3:
         raise Exception("only 2 args supported")
-    first = open(sys.argv[1]).readlines()
-    second = open(sys.argv[2]).readlines()
+    with open(sys.argv[1]) as f:
+        first = f.readlines()
+
+    with open(sys.argv[2]) as f:
+        second = f.readlines()
     pairs = set()
     connects = int()
     for i in first:
