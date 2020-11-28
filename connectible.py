@@ -1,27 +1,21 @@
+import argparse
 import sys
 
 def main():
-    if len(sys.argv) != 3:
-        raise Exception("only 2 args supported")
-    with open(sys.argv[1]) as f:
-        first = f.readlines()
-
-    with open(sys.argv[2]) as f:
-        second = f.readlines()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('files', type=str, nargs='+')
     pairs = set()
     connects = int()
-    for i in first:
-        line = i.split()
-        for t in zip(line, line[1:]):
-            pairs.add(t)
-
-    for i in second:
-        line = i.split()
-        for t in zip(line, line[1:]):
-            if t in pairs:
-                connects += 1
-    print(f"First  file contains {len(first)} lines")
-    print(f"Secons file contains {len(second)} lines")
+    args = parser.parse_args()
+    for file in args.files:
+        lines = open(file).readlines()
+        print(f"{file} has {len(lines)} lines")
+        for i in lines:
+            line = i.strip().split()
+            for t in zip(line, line[1:]):
+                if t in pairs:
+                    connects += 1
+                pairs.add(t)
     print(f"Files has {connects} connections")
 
 try:
