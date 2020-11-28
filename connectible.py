@@ -16,7 +16,7 @@ def main():
                 if t in pairs:
                     connects += 1
                 pairs.add(t)
-    print(f"Files has {connects} connections")
+    print(f"Files have {connects} connections")
 
 try:
     main()
