@@ -11,7 +11,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--width', type=int, default=2)
     parser.add_argument('files', type=str, nargs='+')
-    slises = set()
+    slices = set()
     connects = int()
     args = parser.parse_args()
     for file in args.files:
@@ -20,9 +20,9 @@ def main():
         for i in lines:
             line = i.strip().split()
             for t in windows(args.width, line):
-                if t in slises:
+                if t in slices:
                     connects += 1
-                slises.add(t)
+                slices.add(t)
     print(f"Files have {connects} connections")
 
 try:
